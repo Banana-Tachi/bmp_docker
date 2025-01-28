@@ -1,0 +1,20 @@
+version: "3"
+services:
+  bmp_docker:
+    container_name: bmp_docker
+    image: bmp_docker
+    privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ${WORKSPACE_DIR}:/work
+      - ${DEVICE_HIDRAW}:${DEVICE_HIDRAW}
+    devices:
+      - ${DEVICE_HIDRAW}
+    ports:
+      - "5173:5173"
+    network_mode: host
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
